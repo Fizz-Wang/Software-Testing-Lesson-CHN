@@ -1,0 +1,107 @@
+/* styles/QuestionReveal.module.css */
+.questionContainer {
+    background-color: #ffffff; /* 可以改为更浅的背景，如 #f9f9f9，如果主内容区也是白色 */
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px 25px; /* 调整内边距 */
+    margin-bottom: 25px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.07); /* 轻微的阴影 */
+}
+
+.questionHeader {
+    margin-bottom: 15px;
+}
+
+.questionType {
+    display: inline-block;
+    background-color: #e0e7ff;
+    color: #3730a3;
+    padding: 4px 10px; /* 调整内边距 */
+    border-radius: 12px; /* 更圆润的胶囊形状 */
+    font-size: 0.75rem; /* 稍微调小 */
+    font-weight: 600;
+    margin-right: 12px;
+    vertical-align: middle;
+    text-transform: uppercase; /* 可选：大写 */
+}
+
+.questionText {
+    font-size: 1.1rem;
+    color: #2c3e50; /* 更深的题目文字颜色 */
+    line-height: 1.7;
+    display: inline;
+    margin: 0;
+    font-weight: 500; /* 题目文字可以稍微加粗 */
+}
+
+.questionText p { /* 如果题目文本本身是<p>，确保没有多余的margin */
+    margin: 0;
+}
+
+
+.optionsList {
+    list-style-type: none;
+    padding-left: 10px; /* 给选项列表一些左内边距 */
+    margin-top: 12px;
+    margin-bottom: 18px;
+    color: #454f5b; /* 选项文字颜色 */
+    font-size: 1rem;
+}
+
+.optionsList li {
+    margin-bottom: 10px;
+    padding-left: 0;
+    position: relative;
+}
+/* 可以为选项添加自定义标记，如果需要的话 */
+.optionsList li::before {
+    /* content: '•'; */ /* 如果需要自定义项目符号 */
+    /* margin-right: 8px; */
+    /* color: #3498db; */
+}
+
+
+.toggleButton {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 22px; /* 按钮可以大一点 */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.toggleButton:hover {
+    background-color: #2980b9;
+}
+.toggleButton:active {
+    transform: translateY(1px);
+}
+
+.answerSection {
+    margin-top: 20px;
+    padding: 20px; /* 增加内边距 */
+    background-color: #f0f8ff; /* 非常浅的蓝色，或 #eef7ff */
+    border-radius: 6px;
+    border: 1px solid #bce0fd; /* 边框颜色与背景协调 */
+    color: #334155; /* 答案区域文字颜色 */
+    line-height: 1.7;
+    font-size: 0.95rem;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* 轻微内阴影 */
+}
+
+.answerSection p {
+    margin-bottom: 12px;
+}
+.answerSection p:last-child {
+    margin-bottom: 0;
+}
+
+.answerSection strong {
+    color: #1e3a8a; /* 深蓝色强调 */
+    font-weight: 600;
+}

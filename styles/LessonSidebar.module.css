@@ -1,0 +1,43 @@
+/* styles/LessonSidebar.module.css (新建) */
+.sidebar {
+    /* 样式已在 StudyMaterialsLayout.module.css 的 .lessonSidebarContainer 中定义大部分 */
+}
+
+.sidebarTitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2c3e50; /* 深蓝色 */
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db; /* 蓝色下划线 */
+    display: inline-block;
+}
+
+.lessonList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.listItem a, .activeItem a {
+    display: block;
+    padding: 10px 12px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-weight: 400;
+    font-size: 0.95rem;
+}
+
+.listItem a:hover {
+    background-color: #e9ecef;
+    color: #007bff;
+}
+
+.activeItem a {
+    background-color: #3498db; /* 蓝色高亮 */
+    color: white;
+    font-weight: 500;
+}

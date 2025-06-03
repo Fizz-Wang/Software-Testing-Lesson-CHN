@@ -1,0 +1,110 @@
+/* styles/Layout.module.css */
+/* ... .pageContainer, .mainContent, .mainContentInner, .footer, .footerContentWrapper 保持之前的粘性页脚和压缩样式 ... */
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f7f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.mainContent {
+    flex-grow: 1;
+    width: 100%;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainContentInner {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #ffffff;
+    padding: 25px 35px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInSlideUp 0.6s 0.2s forwards cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes fadeInSlideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.footer {
+    width: 100%;
+    background-color: #2c3e50;
+    color: #bdc3c7;
+    padding: 15px 20px; /* 保持压缩后的页脚 padding */
+    text-align: center;
+}
+
+.footerContentWrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 0.8rem;
+}
+.footerContentWrapper p {
+    margin: 0;
+}
+
+
+/* --- 页眉核心修改 --- */
+.header {
+    width: 100%;
+    background-color: #2c3e50; /* 深蓝色背景 */
+    color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.headerContentWrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px; /* 页眉左右内边距 */
+    display: flex;         /* 设置为 Flex 容器 */
+    align-items: center;   /* 垂直居中对齐所有项 */
+    justify-content: space-between; /* 基本分布：两端对齐，中间自动分配空间 */
+    height: 55px;          /* 设定一个更窄的页眉高度，您可以调整这个值 */
+}
+
+.siteTitleContainer {
+    flex-shrink: 0; /* 防止标题被压缩 */
+}
+
+.siteTitleLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.siteTitle {
+    font-size: 1.5rem; /* 调整字体大小以适应单行布局 */
+    font-weight: 700;
+    margin: 0;
+    line-height: 1; /* 使标题更紧凑 */
+    letter-spacing: 0.5px;
+    /* text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* 可选 */
+}
+
+.navbarContainer {
+    flex-grow: 1;          /* 让导航栏容器占据中间的剩余空间 */
+    display: flex;
+    justify-content: center; /* 将内部的 Navbar 组件（即 ul 列表）在其容器内居中 */
+    min-width: 0; /* 防止 flex item 在空间不足时溢出 */
+}
+
+.currentDateTime { /* 重命名了 class */
+    font-size: 0.75rem; /* 调整字体大小 */
+    font-weight: 300;
+    white-space: nowrap; /* 防止日期时间换行 */
+    opacity: 0.9;
+    flex-shrink: 0; /* 防止日期被压缩 */
+    /* margin-left: auto; /* 如果不用 space-between，可以用这个把它推到最右 */
+}

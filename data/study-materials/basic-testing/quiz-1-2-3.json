@@ -1,0 +1,60 @@
+{
+  "id": "quiz06_error_defect_failure_rca",
+  "title": "单元 1.6 测验：错误、缺陷、失效与根本原因分析",
+  "questions": [
+    {
+      "id": "mcq_bug_accurate_concept",
+      "type": "multiple-choice",
+      "questionText": "在软件开发中，通常所说的“Bug”最准确地对应以下哪个概念？",
+      "options": [
+        { "id": "a", "text": "A. 错误 (Error)" },
+        { "id": "b", "text": "B. 缺陷 (Defect)" },
+        { "id": "c", "text": "C. 失效 (Failure)" },
+        { "id": "d", "text": "D. 根本原因 (Root Cause)" }
+      ],
+      "correctOptionId": "b",
+      "correctOptionText": "B. 缺陷 (Defect)",
+      "explanation": "A 错误 (Error) 是导致缺陷的人为行动。\nB 缺陷 (Defect) 是软件产品中实际存在的瑕疵或问题，与“Bug”或“Fault”是同义词。\nC 失效 (Failure) 是缺陷被执行时，系统表现出的不正确行为。\nD 根本原因 (Root Cause) 是导致错误发生的深层原因。\n因此，“Bug”最准确地对应“缺陷”。"
+    },
+    {
+      "id": "mcq_programmer_typo_classification",
+      "type": "multiple-choice",
+      "questionText": "一位程序员因为疲劳，在编写代码时不小心将一个加号“+”写成了减号“-”。这个“写错符号”的行为属于什么？",
+      "options": [
+        { "id": "a", "text": "A. 缺陷 (Defect)" },
+        { "id": "b", "text": "B. 失效 (Failure)" },
+        { "id": "c", "text": "C. 错误 (Error)" },
+        { "id": "d", "text": "D. 根本原因 (Root Cause)" }
+      ],
+      "correctOptionId": "c",
+      "correctOptionText": "C. 错误 (Error)",
+      "explanation": "A 缺陷 (Defect) 是指代码中那个错误的减号“-”本身。\nB 失效 (Failure) 是指如果这个错误代码被执行，导致计算结果不正确（例如，本应相加得到10，结果相减得到0）。\nC 错误 (Error) 是指程序员“不小心将加号写成减号”这个人为的、不正确的动作或行为。\nD 根本原因 (Root Cause) 可能是“疲劳”，它导致了程序员犯下这个错误。"
+    },
+    {
+      "id": "saq_error_defect_failure_real_life_example",
+      "type": "short-answer",
+      "questionText": "请用一个生活中的例子（非软件领域）来解释错误、缺陷和失效之间的关系。",
+      "modelAnswer": "答案示例：\n以烹饪一道菜为例：\n错误 (Error)： 厨师因为看错了菜谱（或者分心了），本应该加一勺盐，结果错误地加了一勺糖。这个“加错调料”的动作就是错误。\n缺陷 (Defect)： 菜肴中错误地多了一勺糖（而不是盐）。这道菜里“糖代替了盐”这个状态，就是缺陷。\n失效 (Failure)： 当食客品尝这道菜时，发现味道与预期的咸味完全不同，而是甜的，感觉非常难吃。这个“味道不对、难吃”的体验，就是失效。\n在这个例子中，厨师的失误（错误）导致了菜品成分的偏差（缺陷），最终使得菜品的口感和预期严重不符（失效）。"
+    },
+    {
+      "id": "mcq_unexecuted_defect_consequence",
+      "type": "multiple-choice",
+      "questionText": "如果一段代码中存在一个缺陷，但在任何实际运行场景下，该缺陷代码段都永远不会被执行到。这种情况下，最可能发生的是：",
+      "options": [
+        { "id": "a", "text": "A. 该缺陷一定会导致系统失效。" },
+        { "id": "b", "text": "B. 该缺陷可能会导致系统失效，也可能不会。" },
+        { "id": "c", "text": "C. 该缺陷永远不会导致系统失效。" },
+        { "id": "d", "text": "D. 该缺陷会自动被修复。" }
+      ],
+      "correctOptionId": "c",
+      "correctOptionText": "C. 该缺陷永远不会导致系统失效。",
+      "explanation": "A 选项不正确，因为如果缺陷代码不执行，就不会导致失效。\nB 选项不正确，如果代码“永远不会被执行到”（例如，是一段逻辑上无法到达的死代码），那么它就不可能导致失效。\nC 选项正确。失效的前提是包含缺陷的代码被执行。如果某段缺陷代码永远不会被执行，那么它就不会引发系统层面的失效。\nD 选项不正确，缺陷不会自动被修复。"
+    },
+    {
+      "id": "saq_rca_importance_beyond_fixing_defects",
+      "type": "short-answer",
+      "questionText": "为什么要进行根本原因分析 (RCA)？仅仅修复已发现的缺陷不够吗？",
+      "modelAnswer": "仅仅修复已发现的缺陷，如同“头痛医头，脚痛医脚”，可能只是解决了表面问题，但并没有触及问题发生的根源。如果不进行根本原因分析 (RCA)，类似的问题很可能在未来再次发生，甚至在项目的其他部分以不同形式出现。\n进行根本原因分析的主要目的是：\n预防未来问题： 通过找到并消除导致缺陷产生的最根本因素（例如，流程缺陷、工具不足、培训不够、沟通障碍等），可以系统性地防止同类或相关缺陷的再次出现，从而提高整体的开发质量和效率。\n持续改进过程： RCA有助于识别开发流程、管理方法或技术实践中存在的薄弱环节。基于分析结果对这些环节进行改进，可以提升整个团队或组织的能力。例如，如果发现很多缺陷都源于需求理解不清，那么根本原因可能是需求获取和评审流程存在问题，改进这个流程就能从源头上减少此类缺陷。\n降低长期成本： 虽然RCA本身需要投入时间和精力，但从长远来看，通过预防缺陷，可以显著减少后期修复缺陷、处理客户投诉以及返工带来的更高昂成本。\n因此，RCA是一种更主动、更具前瞻性的质量管理方法，它追求的是“治本”而非仅仅“治标”。"
+    }
+  ]
+}

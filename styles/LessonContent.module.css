@@ -1,0 +1,82 @@
+/* styles/LessonContent.module.css (新建) */
+.lessonArticle {
+    line-height: 1.8;
+    color: #333;
+    font-size: 1rem; /* 基础字体大小 */
+}
+
+.lessonTitle {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #2c3e50; /* 深蓝色 */
+    margin-top: 0;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #3498db; /* 蓝色下划线 */
+}
+
+.lessonArticle p {
+    margin-bottom: 1.5em;
+}
+
+.lessonArticle strong {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.lessonArticle em { /* 例如 (assess software quality) */
+    font-style: normal;
+    color: #007bff; /* 蓝色强调 */
+    font-weight: 500;
+}
+
+.lessonArticle ul, .lessonArticle ol {
+    margin-bottom: 1.5em;
+    padding-left: 25px;
+}
+
+.lessonArticle li {
+    margin-bottom: 0.5em;
+}
+
+.lessonArticle h3.subheading { /* 如果您在HTML内容中使用了这个class */
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #34495e;
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.lessonArticle hr.divider { /* 如果您在HTML内容中使用了这个class */
+    border: 0;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 40px 0;
+}
+
+.lessonArticle .exerciseSection {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.lessonArticle .exerciseSection h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.lessonArticle .exerciseSection ul {
+    list-style-type: none; /* 选择题选项通常不带默认标记 */
+    padding-left: 0;
+}
+
+.lessonArticle .exerciseSection ul li {
+    margin-bottom: 8px;
+}
