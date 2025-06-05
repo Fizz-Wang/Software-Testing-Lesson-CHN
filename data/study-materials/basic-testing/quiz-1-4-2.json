@@ -1,0 +1,54 @@
+{
+  "id": "quiz_1_4_2_contextual_factors_sdlc",
+  "title": "测验 1.4.2：影响测试过程的情境因素与SDLC",
+  "questions": [
+    {
+      "id": "mcq_non_contextual_factor_test_process",
+      "type": "multiple-choice",
+      "questionText": "下列哪项不属于影响测试过程的情境因素？",
+      "options": [
+        { "id": "a", "text": "A. 开发团队成员的编程技能熟练度。" },
+        { "id": "b", "text": "B. 被测软件所属的业务领域及其风险。" },
+        { "id": "c", "text": "C. 项目经理的个人爱好。" },
+        { "id": "d", "text": "D. 项目可用的预算和时间限制。" }
+      ],
+      "correctOptionId": "c",
+      "correctOptionText": "C. 项目经理的个人爱好。",
+      "explanation": "A 选项，开发团队成员的技能（例如，如果他们能编写高质量的单元测试）会影响整体的测试策略和活动，属于“团队成员”或广义的“技术因素”影响。\nB 选项，业务领域及其风险是明确列出的关键情境因素。\nC 选项，项目经理的个人爱好通常不被视为影响测试过程的专业情境因素。测试决策应基于项目需求、风险、资源等客观因素。\nD 选项，预算和时间是典型的“项目约束”。"
+    },
+    {
+      "id": "mcq_sensitive_data_privacy_contextual_factor",
+      "type": "multiple-choice",
+      "questionText": "如果一个软件项目涉及处理敏感的个人健康信息，并且需要严格遵守相关的隐私保护法规（如GDPR或HIPAA），这主要体现了哪个情境因素对测试过程的影响？",
+      "options": [
+        { "id": "a", "text": "A. 技术因素 (Technical factors)" },
+        { "id": "b", "text": "B. 业务领域 (Business domain)" },
+        { "id": "c", "text": "C. 团队成员 (Team members)" },
+        { "id": "d", "text": "D. 项目约束 (Project constraints)" }
+      ],
+      "correctOptionId": "b",
+      "correctOptionText": "B. 业务领域 (Business domain)",
+      "explanation": "处理敏感个人健康信息和遵守隐私法规，这些都与软件所应用的业务领域 (Business domain) 的特性（高风险、法律法规要求）密切相关。\nA 技术因素关注的是软件类型、架构等。\nC 团队成员关注的是人员技能和经验。\nD 项目约束关注的是时间、预算等。"
+    },
+    {
+      "id": "saq_sdlc_model_impact_on_test_process",
+      "type": "short-answer",
+      "questionText": "请简述为什么“软件开发生命周期模型”（例如敏捷开发或瀑布模型）会影响测试过程的实施方式。",
+      "modelAnswer": "“软件开发生命周期模型”对测试过程的实施方式有显著影响，因为不同的模型规定了各项开发活动（包括测试）的组织方式、时机和交互模式：\n在瀑布模型 (Waterfall Model) 中： 测试通常被视为一个独立的、在开发阶段完成之后的阶段。这意味着测试活动（如系统测试、验收测试）集中在项目后期进行。测试过程相对线性，需求和设计在早期就被冻结。\n在敏捷开发模型 (Agile Model) 中（如Scrum）： 开发过程是迭代式的，每个短周期（Sprint）都会产出可工作的软件增量。测试活动因此也需要与开发紧密集成，贯穿于每个迭代。测试人员从迭代开始就参与需求讨论、测试用例设计，并进行持续测试（包括自动化测试）。强调快速反馈和适应变化，测试过程更具灵活性和动态性。\n在DevOps实践中： 测试更加自动化，并深度融入到持续集成和持续交付 (CI/CD) 的流水线中。测试的频率更高，反馈回路更短，目标是实现快速、可靠的软件交付。\n因此，开发模型决定了测试活动何时开始、如何组织、与开发如何协作、以及对自动化和文档的要求等。"
+    },
+    {
+      "id": "mcq_org_test_maturity_policy_practice_factor",
+      "type": "multiple-choice",
+      "questionText": "当评估一个组织的测试成熟度时，其内部已有的测试政策和常用的测试实践属于哪个情境因素的范畴？",
+      "options": [
+        { "id": "a", "text": "A. 利益相关者 (Stakeholders)" },
+        { "id": "b", "text": "B. 项目约束 (Project constraints)" },
+        { "id": "c", "text": "C. 技术因素 (Technical factors)" },
+        { "id": "d", "text": "D. 组织因素 (Organizational factors)" }
+      ],
+      "correctOptionId": "d",
+      "correctOptionText": "D. 组织因素 (Organizational factors)",
+      "explanation": "组织内部的政策（如质量政策、测试政策）和常用的实践（如是否推行代码审查、自动化测试等）都属于组织因素 (Organizational factors) 的一部分，它们反映了该组织在软件开发和测试方面的成熟度和运作方式。"
+    }
+  ]
+}

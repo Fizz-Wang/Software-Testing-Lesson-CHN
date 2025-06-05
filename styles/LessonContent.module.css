@@ -80,3 +80,81 @@
 .lessonArticle .exerciseSection ul li {
     margin-bottom: 8px;
 }
+
+/* 例如: styles/LessonContent.module.css */
+/* ... */
+@media (max-width: 768px) {
+    .lessonTitle {
+        font-size: 1.8rem; /* 减小标题字体 */
+        margin-bottom: 20px;
+    }
+    .lessonArticle {
+        font-size: 0.95rem; /* 减小正文字体 */
+    }
+    .lessonArticle h3.subheading {
+        font-size: 1.4rem;
+    }
+}
+
+/* 例如: styles/QuestionReveal.module.css */
+/* ... */
+@media (max-width: 768px) {
+    .questionContainer {
+        padding: 15px;
+    }
+    .questionText {
+        font-size: 1rem;
+    }
+    .optionsList {
+        font-size: 0.9rem;
+    }
+    .toggleButton {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    .answerSection {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}
+
+.lessonPager {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.prevLink, .nextLink {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.prevLink:hover, .nextLink:hover {
+    background-color: #f0f2f5;
+    color: #2980b9;
+}
+
+.nextLink {
+    margin-left: auto; /* 如果只有一个链接，确保它在正确的一侧 */
+}
+
+/* 移动端调整 pager */
+@media (max-width: 768px) {
+    .lessonPager {
+        flex-direction: column; /* 垂直堆叠 */
+        gap: 15px; /* 链接之间的间距 */
+    }
+    .prevLink, .nextLink {
+        text-align: center; /* 文本居中 */
+        width: 100%; /* 占满宽度 */
+    }
+    .nextLink {
+        margin-left: 0; /* 移除桌面端的 margin */
+    }
+}

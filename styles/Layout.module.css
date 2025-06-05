@@ -1,5 +1,6 @@
 /* styles/Layout.module.css */
-/* ... .pageContainer, .mainContent, .mainContentInner, .footer, .footerContentWrapper 保持之前的粘性页脚和压缩样式 ... */
+
+/* 基础和桌面端样式 */
 .pageContainer {
     display: flex;
     flex-direction: column;
@@ -8,10 +9,74 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.header {
+    width: 100%;
+    background-color: #34495e; /* 您文件中的颜色 */
+    color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.headerContentWrapper { /* 这个 wrapper 用于整体最大宽度和左右居中 */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px; /* 桌面端页眉左右内边距 */
+}
+
+/* --- 桌面端导航栏容器 --- */
+.desktopNavbarContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 55px; /* 桌面端页眉固定高度 */
+}
+
+.siteTitleContainer {
+    flex-shrink: 0;
+}
+
+.siteTitleLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.siteTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 0.5px;
+}
+
+.navbarPlacement { /* 桌面导航栏的容器 */
+    flex-grow: 1;
+    display: flex;
+    justify-content: center; /* 使 Navbar 组件在其分配的空间内居中 */
+    min-width: 0; /* 防止内容溢出时 flex item 行为异常 */
+}
+
+.currentDateTimeDesktop {
+    font-size: 0.75rem;
+    font-weight: 300;
+    white-space: nowrap;
+    opacity: 0.9;
+    flex-shrink: 0;
+}
+
+/* --- 移动端特定元素的初始隐藏 --- */
+.mobileHeaderContainer,
+.mobileMenu {
+    display: none;
+}
+
+
+/* --- Main Content & Footer (通用样式) --- */
 .mainContent {
     flex-grow: 1;
     width: 100%;
-    padding: 25px 20px;
+    padding: 25px 20px; /* 桌面端主内容区内边距 */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,9 +103,9 @@
 
 .footer {
     width: 100%;
-    background-color: #34495e; /* 稍微浅一点的深蓝色 */
+    background-color: #34495e;
     color: #bdc3c7;
-    padding: 15px 20px; /* 保持压缩后的页脚 padding */
+    padding: 15px 20px;
     text-align: center;
 }
 
@@ -49,62 +114,113 @@
     margin: 0 auto;
     font-size: 0.8rem;
 }
+
 .footerContentWrapper p {
     margin: 0;
 }
 
 
-/* --- 页眉核心修改 --- */
-.header {
-    width: 100%;
-    background-color: #34495e; /* 稍微浅一点的深蓝色 */
-    color: white;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+/* === 移动端响应式样式 (小于等于 768px) === */
+@media (max-width: 768px) {
+    .header {
+        position: relative; /* 在移动端取消吸顶，使其回归正常文档流，解决重叠 */
+    }
 
-.headerContentWrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px; /* 页眉左右内边距 */
-    display: flex;         /* 设置为 Flex 容器 */
-    align-items: center;   /* 垂直居中对齐所有项 */
-    justify-content: space-between; /* 基本分布：两端对齐，中间自动分配空间 */
-    height: 55px;          /* 设定一个更窄的页眉高度，您可以调整这个值 */
-}
+    .desktopNavbarContainer {
+        display: none; /* 在移动端隐藏桌面页眉结构 */
+    }
 
-.siteTitleContainer {
-    flex-shrink: 0; /* 防止标题被压缩 */
-}
+    .headerContentWrapper { /* 移动端页眉的 .headerContentWrapper 调整 */
+        padding: 0; /* 内边距由 .mobileHeaderContainer 控制 */
+        /* display: block; /* 如果不再需要 flex 特性 */
+        /* height: auto; */ /* 高度由内部元素决定 */
+    }
 
-.siteTitleLink {
-    text-decoration: none;
-    color: inherit;
-}
+    .mobileHeaderContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 15px; /* 移动端页眉内边距 */
+        height: 50px; /* 移动端单行页眉高度 */
+        background-color: #34495e; /* 确保背景色，因为父级 .header 的 padding 可能改变 */
+        color: white;
+    }
 
-.siteTitle {
-    font-size: 1.5rem; /* 调整字体大小以适应单行布局 */
-    font-weight: 700;
-    margin: 0;
-    line-height: 1; /* 使标题更紧凑 */
-    letter-spacing: 0.5px;
-    /* text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* 可选 */
-}
+    .siteTitleContainerMobile .siteTitleLink .siteTitle, /* 确保选择器与 Layout.js 匹配 */
+    .siteTitleMobile { /* 如果直接在 h1 上用了这个类 */
+        font-size: 1.2rem;
+        line-height: 1;
+        color: white;
+        margin: 0;
+    }
+    .siteTitleContainerMobile .siteTitleLink { /* 确保链接本身继承颜色且无下划线 */
+        text-decoration: none;
+        color: inherit;
+    }
 
-.navbarContainer {
-    flex-grow: 1;          /* 让导航栏容器占据中间的剩余空间 */
-    display: flex;
-    justify-content: center; /* 将内部的 Navbar 组件（即 ul 列表）在其容器内居中 */
-    min-width: 0; /* 防止 flex item 在空间不足时溢出 */
-}
 
-.currentDateTime { /* 重命名了 class */
-    font-size: 0.75rem; /* 调整字体大小 */
-    font-weight: 300;
-    white-space: nowrap; /* 防止日期时间换行 */
-    opacity: 0.9;
-    flex-shrink: 0; /* 防止日期被压缩 */
-    /* margin-left: auto; /* 如果不用 space-between，可以用这个把它推到最右 */
+    .hamburgerButton {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 28px;
+        height: 22px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1010;
+    }
+
+    .hamburgerButton span {
+        width: 100%;
+        height: 3px;
+        background-color: white;
+        border-radius: 10px;
+        transition: all 0.3s linear;
+    }
+
+    .mobileMenu {
+        display: flex; /* 由JS控制实际的显隐，这里定义打开后的样式 */
+        flex-direction: column;
+        align-items: center;
+        background-color: #2c3e50; /* 比页眉稍暗或一致 */
+        position: absolute; /* 相对于 .header (如果.header是relative或sticky) */
+        top: 50px;      /* 从移动页眉高度下方开始 */
+        left: 0;
+        width: 100%;
+        padding: 10px 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .currentDateTimeMobileMenu {
+        color: #ccc;
+        font-size: 0.7rem;
+        margin-top: 15px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        width: 90%;
+        text-align: center;
+    }
+
+    .mainContent {
+        padding: 15px;
+    }
+
+    .mainContentInner {
+        padding: 15px;
+        animation: none;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .footer {
+        padding: 10px 15px;
+    }
+    .footerContentWrapper p {
+        font-size: 0.75rem;
+    }
 }

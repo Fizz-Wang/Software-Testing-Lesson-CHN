@@ -1,14 +1,12 @@
 /* styles/StudyMaterialsLayout.module.css (新建) */
-.studyMaterialsPage {
-    width: 100%;
+.studyMaterialsPage { /* 这是 StudyMaterialsLayout 的根 div */
+    padding-top: 10px; /* 给学习资料页面整体一个顶部内边距，避免紧贴主导航栏 */
 }
-
 .subNav {
-    display: flex;
-    gap: 20px;
-    padding: 15px 0;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #e0e0e0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 15px; /* 与下方内容区的间距 */
 }
 
 .navLink, .activeLink {
@@ -56,4 +54,168 @@
     /* background-color: #fff; /* 主内容背景色，如果需要区分 */
     /* padding: 20px; */
     /* border-radius: 8px; */
+}
+
+/* styles/StudyMaterialsLayout.module.css */
+
+/* ... 您现有的样式 ... */
+
+@media (max-width: 768px) {
+    .subNav {
+        flex-direction: column; /* 二级导航垂直堆叠 */
+        align-items: stretch; /* 使链接宽度一致 */
+        gap: 10px;
+    }
+
+    .navLink, .activeLink {
+        text-align: center; /* 文本居中 */
+    }
+
+    .contentArea {
+        flex-direction: column; /* 课程导览和内容垂直堆叠 */
+        gap: 20px;
+    }
+
+    .lessonSidebarContainer {
+        flex: none; /* 取消 flex 比例 */
+        width: 100%; /* 占满宽度 */
+        max-width: 100%; /* 覆盖桌面端的 max-width */
+        margin-bottom: 20px;
+        position: static; /* 取消吸顶效果，因为它现在是文档流的一部分 */
+        max-height: none; /* 取消最大高度限制 */
+        overflow-y: visible; /* 取消内部滚动 */
+    }
+
+    .lessonContentContainer {
+        flex: none; /* 取消 flex 比例 */
+        width: 100%;
+    }
+}
+
+/* styles/StudyMaterialsLayout.module.css */
+/* ... 现有 .studyMaterialsPage, .subNav, .navLink, .activeLink 样式 ... */
+.studyMaterialsPage {
+    width: 100%;
+    /* padding-top: 10px; /* 可选的顶部内边距 */
+}
+.subNav {
+    display: flex;
+    gap: 20px;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.navLink, .activeLink { /* 样式来自之前 */
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 6px;
+    color: #555;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.navLink:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+.activeLink {
+    background-color: #2c3e50;
+    color: white;
+}
+
+
+.contentArea {
+    display: flex;
+    gap: 25px;
+}
+
+.lessonSidebarContainer {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    align-self: flex-start;
+    position: sticky;
+    top: 75px; /* 需要根据您实际的页眉高度调整，确保不被吸顶页眉遮挡 */
+    max-height: calc(100vh - 95px); /* (top值 + 一些底部间距) */
+    overflow-y: auto;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out, width 0.3s ease-out, min-width 0.3s ease-out; /* 添加过渡 */
+}
+
+.lessonContentContainer {
+    flex: 2.5;
+}
+
+.sidebarToggleButton { /* 新增：切换按钮样式 */
+    display: none; /* 默认在桌面端隐藏 */
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    width: 100%; /* 在移动端可以设为全宽或特定宽度 */
+    text-align: center;
+}
+
+/* 移动端响应式调整 */
+@media (max-width: 768px) {
+    /* ... 您已有的 .subNav 移动端样式 ... */
+    .subNav {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .navLink, .activeLink {
+        text-align: center;
+    }
+
+
+    .contentArea {
+        flex-direction: column;
+        gap: 0; /* 移除堆叠时的gap，因为sidebar会隐藏 */
+    }
+
+    .sidebarToggleButton {
+        display: block; /* 在移动端显示切换按钮 */
+    }
+
+    .lessonSidebarContainer {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 0; /* 如果是覆盖式的，可以不需要 */
+        position: static; /* 取消吸顶 */
+        max-height: none;
+        overflow-y: visible;
+        /* 以下用于收起/展开 */
+        border-bottom: 1px solid #e0e0e0; /* 收起时有个分界 */
+    }
+
+    .lessonSidebarContainer.hiddenOnMobile {
+        display: none; /* 直接隐藏 */
+        /* 或者使用更平滑的动画：
+        transform: translateX(-100%);
+        opacity: 0;
+        max-height: 0;
+        padding:0;
+        border:0;
+        overflow: hidden;
+        min-width: 0;
+        width:0;
+        */
+    }
+
+    .lessonContentContainer {
+        width: 100%;
+    }
+
+    /* 当侧边栏隐藏时，主内容区可以占满宽度 (如果侧边栏不是覆盖式而是推开式) */
+    /* .lessonContentContainer.fullWidthOnMobileWhenSidebarHidden {
+      width: 100%;
+    } */
 }

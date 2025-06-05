@@ -10,6 +10,7 @@ import matter from 'gray-matter'; // 用于解析MDX/Markdown frontmatter
 import { serialize } from 'next-mdx-remote/serialize'; // 用于将MDX字符串序列化为可渲染格式
 import { MDXRemote } from 'next-mdx-remote'; // 用于渲染序列化后的MDX
 import QuestionReveal from '../../../components/QuestionReveal';
+import Link from 'next/link'; // 确保 Link 已导入
 
 const lessonsMeta = [
     { slug: 'what-is-testing', title: '1.1 什么是测试？', fileName: '1-1-0-what-is-testing.mdx', quizFile: 'quiz-1-1-0.json' }, // 添加 quizFile
@@ -100,8 +101,11 @@ const components = {
 };
 // pages/study-materials/basic-testing/[lessonSlug].js (继续)
 
-export default function LessonPage({ lessonContent, currentLessonMeta, quizData }) {
-    if (!currentLessonMeta) { // currentLessonMeta 应该总是有值，因为 fallback: false
+export default function LessonPage({ lessonContent, currentLessonMeta, quizData, prevLesson, nextLesson, lessonsForSidebar }) {
+    const router = useRouter(); // 如果需要获取 locale 等信息
+
+    // if (router.isFallback || !currentLessonMeta) { // Fallback 通常用于 ISR 或 getStaticPaths 的 fallback:true
+    if (!currentLessonMeta) {
         return <p>课程信息加载中...</p>;
     }
 
@@ -112,7 +116,7 @@ export default function LessonPage({ lessonContent, currentLessonMeta, quizData 
             </Head>
             <StudyMaterialsLayout
                 activeSubNav="basic-testing"
-                lessonSidebar={<LessonSidebar lessons={lessonsMeta} basePath="/study-materials/basic-testing" />}
+                lessonSidebar={<LessonSidebar lessons={lessonsForSidebar} basePath="/study-materials/basic-testing" />}
             >
                 <article className={styles.lessonArticle}>
                     <h1 className={styles.lessonTitle}>{currentLessonMeta.title}</h1>
@@ -122,7 +126,6 @@ export default function LessonPage({ lessonContent, currentLessonMeta, quizData 
                         <p>课程内容加载失败...</p>
                     )}
 
-                    {/* 在这里渲染测验 */}
                     {quizData && quizData.questions && quizData.questions.length > 0 && (
                         <div className="quiz-section-container" style={{ marginTop: '50px', paddingTop:'30px', borderTop: '1px solid #eee' }}>
                             <h2>{quizData.title || '单元练习'}</h2>
@@ -131,12 +134,25 @@ export default function LessonPage({ lessonContent, currentLessonMeta, quizData 
                             ))}
                         </div>
                     )}
+
+                    {/* --- 新增：上一课/下一课导航 --- */}
+                    <nav className={styles.lessonPager}>
+                        {prevLesson && (
+                            <Link href={`/study-materials/basic-testing/${prevLesson.slug}`} legacyBehavior>
+                                <a className={styles.prevLink}>&larr; 上一课：{prevLesson.title}</a>
+                            </Link>
+                        )}
+                        {nextLesson && (
+                            <Link href={`/study-materials/basic-testing/${nextLesson.slug}`} legacyBehavior>
+                                <a className={styles.nextLink}>下一课：{nextLesson.title} &rarr;</a>
+                            </Link>
+                        )}
+                    </nav>
                 </article>
             </StudyMaterialsLayout>
         </>
     );
 }
-
 // Next.js 数据获取函数
 
 // getStaticPaths 用于定义哪些动态路径需要预渲染
@@ -148,47 +164,75 @@ export async function getStaticPaths() {
 }
 // pages/study-materials/basic-testing/[lessonSlug].js (继续)
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, locale /* 如果您已启用 i18n */ }) {
     const { lessonSlug } = params;
-    const currentLessonMeta = lessonsMeta.find(lesson => lesson.slug === lessonSlug);
+    const currentLessonIndex = lessonsMeta.findIndex(lesson => lesson.slug === lessonSlug); // 使用 lessonsMeta
+    const currentLessonInfo = lessonsMeta[currentLessonIndex]; // 使用 lessonsMeta
 
-    if (!currentLessonMeta) {
+    if (!currentLessonInfo) {
         return { notFound: true };
     }
 
-    const postsDirectory = path.join(process.cwd(), 'data', 'study-materials', 'basic-testing');
+    // 根据当前 locale 构造基础路径 (如果您已实现 i18n)
+    // const lang = locale || 'zh'; // 假设 'zh' 是默认
+    // const postsDirectory = path.join(process.cwd(), 'data', 'study-materials', 'basic-testing', lang);
+    const postsDirectory = path.join(process.cwd(), 'data', 'study-materials', 'basic-testing'); // 当前非 i18n 路径
 
     // 1. 读取 MDX 课程内容
-    const mdxFullPath = path.join(postsDirectory, currentLessonMeta.fileName);
-    let lessonContent = { frontmatter: {}, mdxSource: null }; // 默认值
+    const mdxFullPath = path.join(postsDirectory, currentLessonInfo.fileName);
+    let lessonContent = { frontmatter: {}, mdxSource: null };
+    let currentLessonTitleFromMDX = currentLessonInfo.title; // 默认使用 meta 中的标题
+
     try {
         const fileContents = fs.readFileSync(mdxFullPath, 'utf8');
         const { data, content } = matter(fileContents);
         const mdxSource = await serialize(content, { parseFrontmatter: true });
         lessonContent = { frontmatter: data, mdxSource };
+        currentLessonTitleFromMDX = data.title || currentLessonInfo.title; // 优先从 MDX frontmatter 获取标题
     } catch (error) {
-        console.error(`Error reading MDX file ${currentLessonMeta.fileName}:`, error);
-        // 如果MDX文件读取失败，可以决定是否返回 notFound: true 或继续（可能只显示测验）
+        console.error(`Error reading MDX file ${currentLessonInfo.fileName}:`, error);
     }
 
     // 2. 读取 Quiz JSON 数据
     let quizData = null;
-    if (currentLessonMeta.quizFile) {
-        const quizFilePath = path.join(postsDirectory, currentLessonMeta.quizFile);
+    if (currentLessonInfo.quizFile) {
+        const quizFilePath = path.join(postsDirectory, currentLessonInfo.quizFile);
         try {
             const quizFileContent = fs.readFileSync(quizFilePath, 'utf8');
             quizData = JSON.parse(quizFileContent);
         } catch (error) {
-            console.error(`Error reading Quiz JSON file ${currentLessonMeta.quizFile}:`, error);
-            // 如果 Quiz JSON 文件读取失败，quizData 将保持为 null
+            console.error(`Error reading Quiz JSON file ${currentLessonInfo.quizFile}:`, error);
         }
     }
+
+    // 3. 确定上一课和下一课信息
+    let prevLesson = null;
+    if (currentLessonIndex > 0) {
+        const prevLessonMeta = lessonsMeta[currentLessonIndex - 1];
+        // 为了获取上一课的准确标题（可能来自其MDX frontmatter），理想情况下这里也需要读取
+        // 但为简单起见，先用 lessonsMeta 中的标题
+        prevLesson = { slug: prevLessonMeta.slug, title: prevLessonMeta.title };
+    }
+
+    let nextLesson = null;
+    if (currentLessonIndex < lessonsMeta.length - 1) {
+        const nextLessonMeta = lessonsMeta[currentLessonIndex + 1];
+        nextLesson = { slug: nextLessonMeta.slug, title: nextLessonMeta.title };
+    }
+
+    // (如果您启用了 i18n 并使用 next-i18next)
+    // const translations = await serverSideTranslations(lang, ['common', 'sidebar']); // 示例命名空间
 
     return {
         props: {
             lessonContent,
-            currentLessonMeta,
-            quizData, // 将 quizData 作为 prop 传递给页面组件
+            currentLessonMeta: { ...currentLessonInfo, title: currentLessonTitleFromMDX }, // 确保传递的是最新标题
+            quizData,
+            prevLesson,
+            nextLesson,
+            lessonsForSidebar: lessonsMeta, // 侧边栏仍然使用完整的 lessonsMeta
+            // ...(translations || {}), // 如果使用 next-i18next
         },
     };
 }
+

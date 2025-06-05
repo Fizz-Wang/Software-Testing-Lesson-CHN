@@ -1,84 +1,87 @@
 /* styles/Navbar.module.css */
-.navbar {
-    /* display: flex; /* Navbar 组件的根元素 <nav> 已经是 flex item 的容器 */
-    /* justify-content: center; /* 这个由父级 .navbarContainer 处理了 */
-    /* align-items: center; */
-    /* width: auto; /* 移除 width: 100% */
-    /* padding: 2px 0; /* 这个 padding 可以移除或设为0，因为高度由父级控制 */
+
+/* 桌面端样式 */
+.navbar { /* <nav> 元素 */
+    display: flex;
+    justify-content: center; /* 使 ul.navLinks 在其容器内（即.navbarPlacement）居中 */
+    align-items: center;
+    height: 100%; /* 充满 .navbarPlacement 的高度 */
 }
 
-.navLinks {
+.navLinks { /* <ul> 元素 */
     list-style: none;
-    display: flex; /* 保持 li 水平排列 */
+    display: flex;
     margin: 0;
     padding: 0;
 }
 
 .navLinks li {
-    margin-right: 8px; /* 进一步压缩链接之间的间距 */
+    margin-right: 8px;
 }
+
 .navLinks li:last-child {
     margin-right: 0;
 }
 
-.navLinks a {
+.navLinks a,
+.navLinkText { /* 应用于 <a> 和作为链接外观的 <span> */
     color: white;
     text-decoration: none;
-    font-size: 0.9rem; /* 稍微减小导航链接字体 */
-    font-weight: 400;  /* 可以设为 normal */
-    padding: 6px 8px; /* 压缩链接的内边距 */
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 6px 8px;
     border-radius: 4px;
     position: relative;
     transition: color 0.2s ease, background-color 0.2s ease;
     letter-spacing: 0.2px;
     white-space: nowrap;
 }
+.navLinkText { /* 特指不可点击的 span */
+    cursor: default;
+}
 
-.navLinks a:hover {
+
+.navLinks a:hover,
+.navLinkText.navLinkLookalike:hover { /* 给 span 也加上类似的 hover 效果 */
     color: #f1c40f;
-    background-color: rgba(255, 255, 255, 0.08); /* 轻微背景高亮 */
+    background-color: rgba(255, 255, 255, 0.08);
 }
 
-.navLinks a::after { /* 移除或简化下划线动画，因为空间更小 */
-    display: none;
-    /*
-     content: '';
-     position: absolute;
-     width: 0;
-     height: 1px;
-     bottom: -1px;
-     left: 50%;
-     background-color: #f1c40f;
-     transition: width 0.2s ease-in-out, left 0.2s ease-in-out;
-     transform: translateX(-50%);
-     */
+.navLinks a::after { /* 桌面端下划线动画 */
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px; /* 可以细一点 */
+    bottom: -1px;
+    left: 50%;
+    background-color: #f1c40f;
+    transition: width 0.2s ease-in-out, left 0.2s ease-in-out;
+    transform: translateX(-50%);
 }
 
-/*
 .navLinks a:hover::after {
-  width: 70%;
+    width: 70%;
 }
-*/
 
-/* .dropdownContainer, .dropdownMenu 等下拉菜单样式保持不变 */
+/* --- 下拉菜单样式 --- */
 .dropdownContainer {
     position: relative;
 }
-/* ... (复制您之前的 .dropdownMenu, .dropdownContainer:hover .dropdownMenu, .dropdownMenu li, .dropdownMenu li a 样式) */
+
 .dropdownMenu {
     display: none;
     position: absolute;
-    top: 100%;
+    top: calc(100% + 5px); /* 与父项 немного间距 */
     left: 0;
     background-color: #2c3e50;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-top: none;
+    /* border-top: none; */ /* 可以保留顶部边框 */
     list-style-type: none !important;
     margin: 0;
     padding: 8px 0;
-    min-width: 180px; /* 下拉菜单宽度可以根据内容调整 */
+    min-width: 180px;
     z-index: 1001;
-    border-radius: 0 0 6px 6px;
+    border-radius: 6px; /* 给整个下拉菜单圆角 */
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     opacity: 0;
     transform: translateY(10px);
@@ -100,15 +103,20 @@
 
 .dropdownMenu li a {
     display: block;
-    padding: 8px 15px; /* 下拉菜单项的内边距 */
+    padding: 8px 15px;
     color: #f0f0f0;
-    font-size: 0.85rem; /* 下拉菜单字体 */
+    font-size: 0.85rem;
     text-decoration: none;
     white-space: nowrap;
-    border-radius: 0;
+    border-radius: 0; /* 内部项不需要圆角 */
     background-color: transparent;
     transition: background-color 0.2s ease, color 0.2s ease;
+    border-bottom: none; /* 移除原先可能有的分隔线，靠padding隔开 */
 }
+.dropdownMenu li:not(:last-child) a {
+    /* 如果需要分隔线，可以在这里加，但通常padding足够 */
+}
+
 
 .dropdownMenu li a:hover,
 .dropdownMenu li a:focus {
@@ -117,20 +125,85 @@
     outline: none;
 }
 
-.dropdownMenu li a::after {
+.dropdownMenu li a::after { /* 下拉菜单项不需要下划线动画 */
     display: none;
 }
-.navLinkText { /* 用于不可点击的导航项文本 */
-    color: white;
-    font-size: 0.9rem; /* 与 a 标签一致 */
-    font-weight: 400;
-    padding: 6px 8px; /* 与 a 标签一致 */
-    border-radius: 4px;
-    letter-spacing: 0.2px;
-    white-space: nowrap;
-    cursor: default; /* 表明不可点击 */
-    /* display: inline-block; /* 确保 padding 生效 */
-}
-.navLinkLookalike { /* 如果需要模拟a标签的hover等效果，可以在这里加 */
-    /* 例如，可以添加一个轻微的悬停效果，但不是链接的跳转行为 */
+
+
+/* === 移动端 Navbar 样式 (当 Navbar 在 .mobileMenu 内部时) === */
+@media (max-width: 768px) {
+    .navbar { /* <nav> 元素在移动端菜单中 */
+        width: 100%;
+        padding: 0;
+        justify-content: flex-start; /* 链接列表靠左开始 */
+    }
+
+    .navLinks { /* <ul> 元素 */
+        flex-direction: column;
+        align-items: stretch; /* 让 li 占满宽度 */
+        width: 100%;
+    }
+
+    .navLinks li {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 100%;
+        text-align: left; /* 移动端菜单项文本靠左 */
+    }
+
+    .navLinks li:last-child {
+        margin-bottom: 0;
+    }
+
+    .navLinks a,
+    .navLinkText {
+        display: block;
+        padding: 12px 20px; /* 移动端菜单项内边距 */
+        font-size: 1rem; /* 移动端菜单字体可以清晰一些 */
+        border-bottom: 1px solid rgba(255,255,255,0.05); /* 更细微的分隔线 */
+        width: 100%;
+        color: white;
+        border-radius: 0;
+        text-align: left; /* 确保文本靠左 */
+    }
+
+    .navLinks li:last-of-type a,
+    .navLinks li:last-of-type .navLinkText {
+        border-bottom: none;
+    }
+
+    .navLinks a:hover,
+    .navLinkText.navLinkLookalike:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #f1c40f;
+    }
+
+    .navLinks a::after {
+        display: none; /* 移动端移除下划线动画 */
+    }
+
+    /* 移动端下拉菜单调整 */
+    .dropdownContainer:hover .dropdownMenu, /* 在移动端，hover 触发的下拉可能不是最佳体验 */
+    .dropdownContainer.mobile-dropdown-open .dropdownMenu { /* JS 控制的 class */
+        position: static; /* 在垂直菜单中自然展开 */
+        display: block;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.05); /* 与父项的分隔 */
+        padding: 0; /* 移除外层 padding */
+        background-color: transparent;
+        opacity: 1;
+        transform: translateY(0);
+        border-radius: 0;
+    }
+
+    .dropdownMenu li a {
+        padding: 10px 20px 10px 35px; /* 子菜单项增加缩进 */
+        font-size: 0.9rem;
+        border-bottom: 1px solid rgba(255,255,255,0.03); /* 更细微的分隔线 */
+    }
+    .dropdownMenu li:last-child a {
+        border-bottom: none;
+    }
 }
